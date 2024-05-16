@@ -1,42 +1,44 @@
 <?php
-function znaki($zn):float {
+function znaki($zn): float
+{
     return in_array($zn, ['+', '-', '*', '/']);
 }
 
-function calculate($primer):string {
+function calculate($primer): string
+{
     if (!preg_match('/^[0-9\-\+\*\/\(\) ]+$/', $primer)) {
         return "Ошибка";
     }
 
     $primer = str_replace(' ', '', $primer);
-   
+
     $vvod = [];
-    $Stack = [];
+    $steck = [];
 
     for ($i = 0; $i < strlen($primer); $i++) {
         $zn = $primer[$i];
 
         if (znaki($zn) || $zn === '(' || $zn === ')') {
             if ($zn === '(') {
-                array_push($Stack, $zn);
+                array_push($steck, $zn);
             } elseif ($zn === ')') {
-                while (end($Stack) !== '(') {
-                    $znacen = array_pop($Stack);
+                while (end($steck) !== '(') {
+                    $znacen = array_pop($steck);
                     $per2 = array_pop($vvod);
                     $per1 = array_pop($vvod);
                     $result = otvet($per1, $per2, $znacen);
                     array_push($vvod, $result);
                 }
-                array_pop($Stack); 
+                array_pop($steck);
             } elseif (znaki($zn)) {
-                while (!empty($Stack) && znaki2(end($Stack)) >= znaki2($zn)) {
-                    $znacen = array_pop($Stack);
+                while (!empty($steck) && znaki2(end($steck)) >= znaki2($zn)) {
+                    $znacen = array_pop($steck);
                     $per2 = array_pop($vvod);
                     $per1 = array_pop($vvod);
                     $result = otvet($per1, $per2, $znacen);
                     array_push($vvod, $result);
                 }
-                array_push($Stack, $zn);
+                array_push($steck, $zn);
             }
         } else {
             $number = '';
@@ -49,8 +51,8 @@ function calculate($primer):string {
         }
     }
 
-    while (!empty($Stack)) {
-        $znacen = array_pop($Stack);
+    while (!empty($steck)) {
+        $znacen = array_pop($steck);
         $per2 = array_pop($vvod);
         $per1 = array_pop($vvod);
         $result = otvet($per1, $per2, $znacen);
@@ -60,7 +62,8 @@ function calculate($primer):string {
     return reset($vvod);
 }
 
-function znaki2($zn):float {
+function znaki2($zn): float
+{
     if ($zn === '+' || $zn === '-') {
         return 1;
     } elseif ($zn === '*' || $zn === '/') {
@@ -69,7 +72,8 @@ function znaki2($zn):float {
     return 0;
 }
 
-function otvet($per1, $per2, $zn):string {
+function otvet($per1, $per2, $zn): string
+{
     switch ($zn) {
         case '+':
             return $per1 + $per2;
@@ -79,10 +83,10 @@ function otvet($per1, $per2, $zn):string {
             return $per1 * $per2;
         case '/':
             if ($per2 == 0) {
-            echo "Ошибка";
-            exit;
-            }else{
-            return $per1 / $per2;
+                echo "Ошибка";
+                exit;
+            } else {
+                return $per1 / $per2;
             }
     }
 }
