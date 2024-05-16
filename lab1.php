@@ -3,13 +3,13 @@ function znaki($zn):float {
     return in_array($zn, ['+', '-', '*', '/']);
 }
 
-function calculate($primer):float {
+function calculate($primer):string {
     if (!preg_match('/^[0-9\-\+\*\/\(\) ]+$/', $primer)) {
         return "Ошибка";
     }
 
     $primer = str_replace(' ', '', $primer);
-
+   
     $vvod = [];
     $Stack = [];
 
@@ -69,7 +69,7 @@ function znaki2($zn):float {
     return 0;
 }
 
-function otvet($per1, $per2, $zn):float {
+function otvet($per1, $per2, $zn):string {
     switch ($zn) {
         case '+':
             return $per1 + $per2;
@@ -79,14 +79,14 @@ function otvet($per1, $per2, $zn):float {
             return $per1 * $per2;
         case '/':
             if ($per2 == 0) {
-                return 0;
-            }
+            echo "Ошибка";
+            exit;
+            }else{
             return $per1 / $per2;
-            
+            }
     }
 }
 
 echo "Введите пример: ";
 $primer = "123/0+1";
 echo calculate($primer);
-?>
