@@ -1,5 +1,5 @@
 <?php
-function znaki($zn): float
+function znaki($zn)
 {
     return in_array($zn, ['+', '-', '*', '/']);
 }
@@ -62,7 +62,7 @@ function calculate($primer): string
     return reset($vvod);
 }
 
-function znaki2($zn): float
+function znaki2($zn)
 {
     if ($zn === '+' || $zn === '-') {
         return 1;
@@ -71,8 +71,7 @@ function znaki2($zn): float
     }
     return 0;
 }
-
-function otvet($per1, $per2, $zn): string
+function otvet($per1, $per2, $zn)
 {
     switch ($zn) {
         case '+':
@@ -82,7 +81,7 @@ function otvet($per1, $per2, $zn): string
         case '*':
             return $per1 * $per2;
         case '/':
-            if ($per2 == 0) {
+            if ($per2 === 0.0) {  
                 echo "Ошибка";
                 exit;
             } else {
