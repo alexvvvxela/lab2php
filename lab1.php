@@ -1,9 +1,9 @@
 <?php
-function znaki($zn) {
+function znaki($zn):float {
     return in_array($zn, ['+', '-', '*', '/']);
 }
 
-function calculate($primer) {
+function calculate($primer):float {
     if (!preg_match('/^[0-9\-\+\*\/\(\) ]+$/', $primer)) {
         return "Ошибка";
     }
@@ -60,7 +60,7 @@ function calculate($primer) {
     return reset($vvod);
 }
 
-function znaki2($zn) {
+function znaki2($zn):float {
     if ($zn === '+' || $zn === '-') {
         return 1;
     } elseif ($zn === '*' || $zn === '/') {
@@ -69,7 +69,7 @@ function znaki2($zn) {
     return 0;
 }
 
-function otvet($per1, $per2, $zn) {
+function otvet($per1, $per2, $zn):float {
     switch ($zn) {
         case '+':
             return $per1 + $per2;
@@ -79,13 +79,14 @@ function otvet($per1, $per2, $zn) {
             return $per1 * $per2;
         case '/':
             if ($per2 == 0) {
-                return "Ошибка";
+                return 0;
             }
             return $per1 / $per2;
+            
     }
 }
 
 echo "Введите пример: ";
-$primer = readline();
-echo calculate($primer); 
+$primer = "123/0+1";
+echo calculate($primer);
 ?>
