@@ -1,10 +1,10 @@
 <?php
-function znaki($zn)
+function znaki($zn):int
 {
     return in_array($zn, ['+', '-', '*', '/']);
 }
 
-function calculate($primer): string
+function calculate($primer): float
 {
     if (!preg_match('/^[0-9\-\+\*\/\(\) ]+$/', $primer)) {
         return "Ошибка";
@@ -62,7 +62,7 @@ function calculate($primer): string
     return reset($vvod);
 }
 
-function znaki2($zn)
+function znaki2($zn):float
 {
     if ($zn === '+' || $zn === '-') {
         return 1;
@@ -71,7 +71,7 @@ function znaki2($zn)
     }
     return 0;
 }
-function otvet($per1, $per2, $zn)
+function otvet($per1, $per2, $zn):float
 {
     switch ($zn) {
         case '+':
